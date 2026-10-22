@@ -1,0 +1,5 @@
+{
+  "contract_status": "experimental",
+  "question_root": ".",
+  "database": "runtime/sessions.sqlite3"
+}

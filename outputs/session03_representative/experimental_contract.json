@@ -1,0 +1,36 @@
+{
+  "contract_version": "experimental.questions.1",
+  "contract_status": "experimental",
+  "basis": "요구사항_1-3_백엔드_실행계획.md의 질문 초안(159~178행, 세션01 계약 검토). 팀 확정 계약이 아니다.",
+  "version_policy": {
+    "schema_version": "이 초안에서는 진행 중 세션이 고정할 질문 스냅샷 버전. data_version과 같은 값이다.",
+    "data_version": "질문 내용과 안정 원천 식별자(URL·메서드·원본/저장 SHA)의 정렬 JSON SHA-256에서 생성한 knia-rep-v1-<16 hex>. 경로·수집 시각만 다른 별도 run은 동일 논리 데이터 버전이다. 전체 산출물 파일 SHA는 run별 provenance까지 구분한다.",
+    "contract_version": "실험용 JSON 모양의 버전. shape version과 질문 스냅샷 버전을 구분한다.",
+    "overwrite": "버전 디렉터리 파일은 immutable. 존재하는 파일과 내용이 다르면 실패한다. 다른 버전으로 자동 대체하지 않는다."
+  },
+  "top_level_required": ["schema_version", "data_version", "contract_version", "contract_status", "start_question_id", "questions", "sources", "scope", "representative_path", "uncollected_branches", "terminal", "source_mapping"],
+  "question_required": ["question_id", "text", "original_text", "selection_mode", "min_selections", "max_selections", "vehicle_role", "options", "routing", "source_ref"],
+  "option_required": ["option_id", "label", "source_code_name", "source_code", "source_row", "normalized_facts", "source_ref", "collection_status"],
+  "ids": {"question": "q_knia_d<depth>_<parent code or root>", "option": "o_<source id>"},
+  "selection": {"mode": "single", "min": 1, "max": 1, "basis": "실제 type/choice 버튼은 각 목록에서 하나만 active로 전환한다. 각 수집 단계 진행에는 하나를 선택한다."},
+  "routing": {
+    "rules": "selected_option_ids 배열과 next 객체. 배열은 선택 ID 집합이며 이번 범위는 길이 1이다.",
+    "next_types": ["question", "complete"],
+    "question": {"type": "question", "question_id": "실제로 수집된 다음 질문 ID"},
+    "complete": {"type": "complete"},
+    "representative_rules_only": true,
+    "unsupported_choices": "실제 모든 선택지는 options에 보존하지만 대표 밖 18개는 routing.rules에 없다. uncollected_branches와 정확히 대응한다. 소비자는 uncollected_branch 오류/미지원 상태를 반환해야 하며 정상 종료로 처리하면 안 된다.",
+    "unknown_choices": "unknown_option/unknown_question/unknown_connection 오류로 구분한다."
+  },
+  "normalized_facts": {
+    "policy": "검토한 대표 선택 5개의 원문 사실만 conditions 아래 실험용 *_text 필드에 보존한다. 나머지 선택지는 빈 객체와 미매핑 이유를 둔다.",
+    "conditions_fields": ["accident_type_text", "location_text", "traffic_signal_location_text", "movement_and_entry_text", "unassigned_signal_movement_pair_text"],
+    "vehicle_role": "common은 두 차량을 포함한 합성 사고 분류라는 뜻이다. 차량 A/B나 신호 색상을 내 차/상대 차에 배정했다는 뜻이 아니다.",
+    "my_vehicle": "미매핑. 직접 내 차라는 근거가 없으므로 채우지 않는다.",
+    "other_vehicle": "상대차량이 측면에서 진입 문구는 conditions.movement_and_entry_text에 원문으로 보존한다. 공통 차량 필드가 없으므로 역할별 구조화는 확정하지 않는다.",
+    "source_A_B_assignment": "모든 대응은 null, status=unconfirmed 및 이유를 남긴다.",
+    "ftnt": "원천 문자열만 보존. 업무 의미·정렬 키로 사용하지 않는다."
+  },
+  "scope": "대표 경로 2→A007→B014→C039→D001, 질문 5개/선택지 23개/검증한 완료 1개. 전체 차대차 데이터가 아니다.",
+  "runtime_not_implemented": ["문답 API", "DB", "서비스 session_id", "답변 저장", "이전 답변 수정", "AccidentContext 서비스"]
+}

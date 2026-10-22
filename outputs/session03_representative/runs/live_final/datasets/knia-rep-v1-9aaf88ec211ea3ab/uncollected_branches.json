@@ -1,0 +1,975 @@
+{
+  "data_version": "knia-rep-v1-9aaf88ec211ea3ab",
+  "branches": [
+    {
+      "branch_id": "q_knia_d0_root:o_1",
+      "question_id": "q_knia_d0_root",
+      "option_id": "o_1",
+      "source_code": "1",
+      "parent_path": [],
+      "selection_path": [
+        "1"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 731,
+          "line_end": 738,
+          "char_start": 27250,
+          "char_end": 27423,
+          "snippet_sha256": "1060753811fb4fed8138c3f78682330133e3a7a0021300732c34e7840638bfef"
+        },
+        "source_id": "1",
+        "source_row": {
+          "depth": "0",
+          "name": "차대보행자",
+          "id": "1",
+          "upper": "0000",
+          "ftnt": "1",
+          "chartno": ""
+        },
+        "display": {
+          "line_start": 552,
+          "line_end": 555,
+          "char_start": 19867,
+          "char_end": 20035,
+          "snippet_sha256": "d5aef3d20adbc677a28b9752f5d41fa41c81ca7745896c904adad6f029ff802e"
+        }
+      }
+    },
+    {
+      "branch_id": "q_knia_d0_root:o_3",
+      "question_id": "q_knia_d0_root",
+      "option_id": "o_3",
+      "source_code": "3",
+      "parent_path": [],
+      "selection_path": [
+        "3"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 2675,
+          "line_end": 2682,
+          "char_start": 72803,
+          "char_end": 72976,
+          "snippet_sha256": "6014926151015a4693914a5d0c6137c6fc918b1409f37ea411d53f202637db11"
+        },
+        "source_id": "3",
+        "source_row": {
+          "depth": "0",
+          "name": "차대자전거",
+          "id": "3",
+          "upper": "0000",
+          "ftnt": "3",
+          "chartno": ""
+        },
+        "display": {
+          "line_start": 556,
+          "line_end": 559,
+          "char_start": 20053,
+          "char_end": 20220,
+          "snippet_sha256": "73cad167e125cdad4cd94d4acf3dd2da6445a56950d413b46ebd97cdb4e75d4b"
+        }
+      }
+    },
+    {
+      "branch_id": "q_knia_d1_2:o_A008",
+      "question_id": "q_knia_d1_2",
+      "option_id": "o_A008",
+      "source_code": "A008",
+      "parent_path": [
+        "2"
+      ],
+      "selection_path": [
+        "2",
+        "A008"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 2045,
+          "line_end": 2052,
+          "char_start": 58056,
+          "char_end": 58245,
+          "snippet_sha256": "26614baf69f2a7c3a26a54040811b637398fc90f968ea642d73d08a4c63090d3"
+        },
+        "source_id": "A008",
+        "source_row": {
+          "depth": "1",
+          "name": "마주보는 방향 진행차량 상호 간의 사고",
+          "id": "A008",
+          "upper": "2",
+          "ftnt": "2",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d1_2:o_A009",
+      "question_id": "q_knia_d1_2",
+      "option_id": "o_A009",
+      "source_code": "A009",
+      "parent_path": [
+        "2"
+      ],
+      "selection_path": [
+        "2",
+        "A009"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 2144,
+          "line_end": 2151,
+          "char_start": 60354,
+          "char_end": 60541,
+          "snippet_sha256": "97f9076cd4bb68751924252ee18796049858e629d99e5fe4b86dbe7b7e569baa"
+        },
+        "source_id": "A009",
+        "source_row": {
+          "depth": "1",
+          "name": "같은 방향 진행차량 상호 간의 사고",
+          "id": "A009",
+          "upper": "2",
+          "ftnt": "3",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d1_2:o_A010",
+      "question_id": "q_knia_d1_2",
+      "option_id": "o_A010",
+      "source_code": "A010",
+      "parent_path": [
+        "2"
+      ],
+      "selection_path": [
+        "2",
+        "A010"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 2432,
+          "line_end": 2439,
+          "char_start": 67139,
+          "char_end": 67329,
+          "snippet_sha256": "d2a08e50641882f9a4f11e18f90b8f9204de1d7e6bcbac6f3e3fbdb26d31e9b1"
+        },
+        "source_id": "A010",
+        "source_row": {
+          "depth": "1",
+          "name": "기타 유형의 사고(주차장,회전교차로 등)",
+          "id": "A010",
+          "upper": "2",
+          "ftnt": "4",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d1_2:o_A011",
+      "question_id": "q_knia_d1_2",
+      "option_id": "o_A011",
+      "source_code": "A011",
+      "parent_path": [
+        "2"
+      ],
+      "selection_path": [
+        "2",
+        "A011"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 2630,
+          "line_end": 2637,
+          "char_start": 71714,
+          "char_end": 71896,
+          "snippet_sha256": "c3f6d5360916f9ce23847dc1d071f88a202f78631a96b2867c529961995526f3"
+        },
+        "source_id": "A011",
+        "source_row": {
+          "depth": "1",
+          "name": "자동차 대 이륜차 특수유형",
+          "id": "A011",
+          "upper": "2",
+          "ftnt": "5",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d2_A007:o_B015",
+      "question_id": "q_knia_d2_A007",
+      "option_id": "o_B015",
+      "source_code": "B015",
+      "parent_path": [
+        "2",
+        "A007"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B015"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1505,
+          "line_end": 1512,
+          "char_start": 45327,
+          "char_end": 45526,
+          "snippet_sha256": "103000eae118f5ff46b485aaff47e841f4646d020e1624303d1976e0f34ab6b3"
+        },
+        "source_id": "B015",
+        "source_row": {
+          "depth": "2",
+          "name": "한쪽 신호등 있는 교차로(상대차량이 측면에서 진입)",
+          "id": "B015",
+          "upper": "A007",
+          "ftnt": "2",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d2_A007:o_B016",
+      "question_id": "q_knia_d2_A007",
+      "option_id": "o_B016",
+      "source_code": "B016",
+      "parent_path": [
+        "2",
+        "A007"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B016"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1559,
+          "line_end": 1566,
+          "char_start": 46566,
+          "char_end": 46751,
+          "snippet_sha256": "865da8a60981fa43e71a156300d0984c85b41e2313588713b73684e0777b749e"
+        },
+        "source_id": "B016",
+        "source_row": {
+          "depth": "2",
+          "name": "한쪽 지시표지 있는 교차로",
+          "id": "B016",
+          "upper": "A007",
+          "ftnt": "3",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d2_A007:o_B017",
+      "question_id": "q_knia_d2_A007",
+      "option_id": "o_B017",
+      "source_code": "B017",
+      "parent_path": [
+        "2",
+        "A007"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B017"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1676,
+          "line_end": 1683,
+          "char_start": 49238,
+          "char_end": 49424,
+          "snippet_sha256": "bec2aefc287a181b93c2eefbb2726a8b654fbfc74a7127ba7799d7b3541ebb9f"
+        },
+        "source_id": "B017",
+        "source_row": {
+          "depth": "2",
+          "name": "교차로 노면 표시 위반 사고",
+          "id": "B017",
+          "upper": "A007",
+          "ftnt": "4",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d2_A007:o_B018",
+      "question_id": "q_knia_d2_A007",
+      "option_id": "o_B018",
+      "source_code": "B018",
+      "parent_path": [
+        "2",
+        "A007"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B018"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1748,
+          "line_end": 1755,
+          "char_start": 51100,
+          "char_end": 51281,
+          "snippet_sha256": "fa9501c8b42acd1b366478f38098ffc2bd1cd10391868d479b9aab3e85c3ff35"
+        },
+        "source_id": "B018",
+        "source_row": {
+          "depth": "2",
+          "name": "신호등 없는 교차로",
+          "id": "B018",
+          "upper": "A007",
+          "ftnt": "5",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d2_A007:o_B019",
+      "question_id": "q_knia_d2_A007",
+      "option_id": "o_B019",
+      "source_code": "B019",
+      "parent_path": [
+        "2",
+        "A007"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B019"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1973,
+          "line_end": 1980,
+          "char_start": 56380,
+          "char_end": 56574,
+          "snippet_sha256": "fa3fd65e30cbe6e74aa0b65cc56c23d58b782a5a1c0d87b9a1e07b0dd08daddb"
+        },
+        "source_id": "B019",
+        "source_row": {
+          "depth": "2",
+          "name": "교차로 부근 동시 우회전 내지 좌회전 사고",
+          "id": "B019",
+          "upper": "A007",
+          "ftnt": "6",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d3_B014:o_C040",
+      "question_id": "q_knia_d3_B014",
+      "option_id": "o_C040",
+      "source_code": "C040",
+      "parent_path": [
+        "2",
+        "A007",
+        "B014"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B014",
+        "C040"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1334,
+          "line_end": 1341,
+          "char_start": 41299,
+          "char_end": 41498,
+          "snippet_sha256": "8d03b4b0831ec7d8e0a667e418e6218eceb3181f536805d65374ab23799bf02f"
+        },
+        "source_id": "C040",
+        "source_row": {
+          "depth": "3",
+          "name": "직진 대 좌회전 사고 - 상대차량이 맞은편에서 진입",
+          "id": "C040",
+          "upper": "B014",
+          "ftnt": "2",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d3_B014:o_C041",
+      "question_id": "q_knia_d3_B014",
+      "option_id": "o_C041",
+      "source_code": "C041",
+      "parent_path": [
+        "2",
+        "A007",
+        "B014"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B014",
+        "C041"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1397,
+          "line_end": 1404,
+          "char_start": 42807,
+          "char_end": 43008,
+          "snippet_sha256": "371c717f90b78b2ad6ce20216399062d1c228a69289a3438901508d2a1835324"
+        },
+        "source_id": "C041",
+        "source_row": {
+          "depth": "3",
+          "name": "직진 대 좌회전 사고 - 상대차량이 측면 방향에서 진입",
+          "id": "C041",
+          "upper": "B014",
+          "ftnt": "3",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d3_B014:o_C042",
+      "question_id": "q_knia_d3_B014",
+      "option_id": "o_C042",
+      "source_code": "C042",
+      "parent_path": [
+        "2",
+        "A007",
+        "B014"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B014",
+        "C042"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": false,
+      "source_chart_no": null,
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1478,
+          "line_end": 1485,
+          "char_start": 44693,
+          "char_end": 44890,
+          "snippet_sha256": "5df3916d7a90eded7db18d850c21155538eab8e0eeaee0e4654882ef9bb9f6c7"
+        },
+        "source_id": "C042",
+        "source_row": {
+          "depth": "3",
+          "name": "좌회전 대 우회전 - 상대차량이 맞은편에서 진입",
+          "id": "C042",
+          "upper": "B014",
+          "ftnt": "4",
+          "chartno": ""
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d4_C039:o_D002",
+      "question_id": "q_knia_d4_C039",
+      "option_id": "o_D002",
+      "source_code": "D002",
+      "parent_path": [
+        "2",
+        "A007",
+        "B014",
+        "C039"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B014",
+        "C039",
+        "D002"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": true,
+      "source_chart_no": "차1-2",
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1298,
+          "line_end": 1305,
+          "char_start": 40464,
+          "char_end": 40663,
+          "snippet_sha256": "1c609ebfa685e1f2a98045661afb6525d375ce6780d211cf6deef7b87b57ec75"
+        },
+        "source_id": "D002",
+        "source_row": {
+          "depth": "4",
+          "name": "녹색 직진 대 녹색이나 황색 진입 적색 충돌",
+          "id": "D002",
+          "upper": "C039",
+          "ftnt": "2",
+          "chartno": "차1-2"
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d4_C039:o_D003",
+      "question_id": "q_knia_d4_C039",
+      "option_id": "o_D003",
+      "source_code": "D003",
+      "parent_path": [
+        "2",
+        "A007",
+        "B014",
+        "C039"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B014",
+        "C039",
+        "D003"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": true,
+      "source_chart_no": "차1-3",
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1307,
+          "line_end": 1314,
+          "char_start": 40680,
+          "char_end": 40868,
+          "snippet_sha256": "c2d79e50467da3e330cabfec02961e54d78acb3a11d42832ab4fea3e0ff912bc"
+        },
+        "source_id": "D003",
+        "source_row": {
+          "depth": "4",
+          "name": "황색 직진 대 적색 직진",
+          "id": "D003",
+          "upper": "C039",
+          "ftnt": "3",
+          "chartno": "차1-3"
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d4_C039:o_D004",
+      "question_id": "q_knia_d4_C039",
+      "option_id": "o_D004",
+      "source_code": "D004",
+      "parent_path": [
+        "2",
+        "A007",
+        "B014",
+        "C039"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B014",
+        "C039",
+        "D004"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": true,
+      "source_chart_no": "차1-4",
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1316,
+          "line_end": 1323,
+          "char_start": 40885,
+          "char_end": 41073,
+          "snippet_sha256": "4d21b467cbffd4f4a6aa25c2682cb5dcff79efe5b5a4096b057171aa7b975d59"
+        },
+        "source_id": "D004",
+        "source_row": {
+          "depth": "4",
+          "name": "적색 직진 대 적색 직진",
+          "id": "D004",
+          "upper": "C039",
+          "ftnt": "4",
+          "chartno": "차1-4"
+        },
+        "display": null
+      }
+    },
+    {
+      "branch_id": "q_knia_d4_C039:o_D005",
+      "question_id": "q_knia_d4_C039",
+      "option_id": "o_D005",
+      "source_code": "D005",
+      "parent_path": [
+        "2",
+        "A007",
+        "B014",
+        "C039"
+      ],
+      "selection_path": [
+        "2",
+        "A007",
+        "B014",
+        "C039",
+        "D005"
+      ],
+      "collection_status": "uncollected",
+      "reason": "outside the single representative path; no child question or result queried/validated",
+      "source_presence": "embedded_html_option_preserved",
+      "source_terminal_candidate": true,
+      "source_chart_no": "차1-5",
+      "source_ref": {
+        "page": {
+          "path": "outputs/session03_representative/runs/live_final/raw/bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.response.body",
+          "sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "url": "https://accident.knia.or.kr/myaccident1",
+          "method": "GET",
+          "captured_at": "2026-10-22T17:26:39.988401+09:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "original_sha256": "44836dfaf17c3f9995de2dae75a6e13ba2dc27eb02827f84eddb3fd252390ec4",
+          "original_bytes": 139736,
+          "stored_bytes": 139736,
+          "redaction_count": 0,
+          "exchange_path": "raw\\bc564f6b9b97503e248f77e5bedd74eab4e94f1fe9ed056c5dd8c69fd700edb3_1.exchange.json"
+        },
+        "code": {
+          "line_start": 1325,
+          "line_end": 1332,
+          "char_start": 41090,
+          "char_end": 41282,
+          "snippet_sha256": "0c18a67f69f34eea06fb3fee4e78542a8aefd789b9264b65e5a77137ecf43181"
+        },
+        "source_id": "D005",
+        "source_row": {
+          "depth": "4",
+          "name": "적색점멸 직진 대 황색점멸 직진",
+          "id": "D005",
+          "upper": "C039",
+          "ftnt": "5",
+          "chartno": "차1-5"
+        },
+        "display": null
+      }
+    }
+  ]
+}
