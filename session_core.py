@@ -84,6 +84,56 @@ class ExperimentalQuestionAdapter:
                 'options': [{k: deepcopy(o[k]) for k in ('option_id', 'label', 'collection_status')} for o in question['options']]}
 
 
+class MultiTerminalQuestionAdapter(ExperimentalQuestionAdapter):
+    """experimental.questions.2: single-choice tree with per-choice terminal evidence."""
+    @staticmethod
+    def validate(data: dict) -> None:
+        ExperimentalQuestionAdapter.validate(data)
+        try:
+            for question in data['questions']:
+                routed = {r['selected_option_ids'][0] for r in question['routing']['rules']}
+                if any(o['collection_status'] != 'verified' for o in question['options'] if o['option_id'] in routed):
+                    raise ValueError()
+            questions = {q['question_id']: q for q in data['questions']}
+            expected = {(q['question_id'], r['selected_option_ids'][0])
+                        for q in questions.values() for r in q['routing']['rules']
+                        if r['next'] == {'type': 'complete'}}
+            actual = set()
+            for terminal in data['terminals']:
+                key = (terminal['question_id'], terminal['option_id'])
+                if key in actual or key not in expected:
+                    raise ValueError()
+                actual.add(key)
+                option = next(o for o in questions[key[0]]['options'] if o['option_id'] == key[1])
+                ref = terminal['source_ref']
+                if (terminal['type'] != 'complete' or not terminal['evidence']
+                    or not isinstance(terminal['chart_no'], str) or not terminal['chart_no']
+                    or terminal['chart_no'] != option['source_row']['chartno']
+                    or ref != option['source_ref']['result'] or ref['status'] != 200
+                    or ref['method'] != 'POST' or not isinstance(ref['path'], str)
+                    or len(ref['sha256']) != 64):
+                    raise ValueError()
+            if actual != expected:
+                raise ValueError()
+            active, visited = set(), set()
+            def walk(qid):
+                if qid in active:
+                    raise ValueError()
+                if qid in visited:
+                    return
+                active.add(qid)
+                for rule in questions[qid]['routing']['rules']:
+                    if rule['next']['type'] == 'question':
+                        walk(rule['next']['question_id'])
+                active.remove(qid)
+                visited.add(qid)
+            walk(data['start_question_id'])
+            if visited != set(questions):
+                raise ValueError()
+        except (KeyError, TypeError, ValueError, IndexError, StopIteration, RecursionError):
+            raise SessionError('invalid_question_data') from None
+
+
 class QuestionLoader:
     """Explicit registry, exact bytes per load, no filesystem search/fallback."""
     def __init__(self, root: Path, registry: dict[str, QuestionRef]):
@@ -98,7 +148,7 @@ class QuestionLoader:
     def load(self, ref: QuestionRef) -> dict:
         if ref != self.reference(ref.question_schema_version):
             raise SessionError('question_reference_mismatch')
-        if ref.contract_version != CONTRACT:
+        if ref.contract_version not in (CONTRACT, 'experimental.questions.2'):
             raise SessionError('unsupported_question_contract')
         path = (self.root / ref.path).resolve()
         if not path.is_relative_to(self.root):
@@ -117,11 +167,12 @@ class QuestionLoader:
             raise SessionError('invalid_question_data') from None
         if not isinstance(data, dict):
             raise SessionError('invalid_question_data')
-        if data.get('contract_version') != CONTRACT or data.get('contract_status') != 'experimental':
+        if data.get('contract_version') != ref.contract_version or data.get('contract_status') != 'experimental':
             raise SessionError('unsupported_question_contract')
         if data.get('schema_version') != ref.question_schema_version or data.get('data_version') != ref.question_schema_version:
             raise SessionError('question_version_mismatch')
-        ExperimentalQuestionAdapter.validate(data)
+        adapter = MultiTerminalQuestionAdapter if ref.contract_version == 'experimental.questions.2' else ExperimentalQuestionAdapter
+        adapter.validate(data)
         return data
 
 
@@ -378,6 +429,12 @@ class SessionService:
                     'option_id': option['option_id'], 'source_ref': deepcopy(option.get('source_ref'))})
         terminal = data.get('terminal', {})
         last = record.history[-1]
+        if record.question_ref.contract_version == 'experimental.questions.2':
+            matches = [t for t in data['terminals'] if t['question_id'] == last.question_id
+                       and last.selected_option_ids == (t['option_id'],)]
+            if len(matches) != 1:
+                raise SessionError('invalid_question_data')
+            terminal = matches[0]
         verified = (terminal.get('type') == 'complete' and terminal.get('question_id') == last.question_id
                     and last.selected_option_ids == (terminal.get('option_id'),)
                     and bool(terminal.get('evidence')) and bool(terminal.get('source_ref')))
