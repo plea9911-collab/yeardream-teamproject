@@ -1,0 +1,61 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.12.14",
+  "source_bytes": 8585510,
+  "scope": "local Waitress server RSS sampled every 20ms; CPU; HTTP upload-to-result; no cloud or TLS latency",
+  "runs": [
+    {
+      "case": "real_cold",
+      "seconds": 3.168,
+      "cpu_seconds": 1.966,
+      "peak_rss_mib": 279.92,
+      "end_rss_mib": 276.66,
+      "status": "completed",
+      "vehicles": 5
+    },
+    {
+      "case": "real_repeat_1",
+      "seconds": 0.248,
+      "cpu_seconds": 0.227,
+      "peak_rss_mib": 288.88,
+      "end_rss_mib": 269.73,
+      "status": "completed",
+      "vehicles": 5
+    },
+    {
+      "case": "real_repeat_2",
+      "seconds": 0.321,
+      "cpu_seconds": 0.32,
+      "peak_rss_mib": 323.67,
+      "end_rss_mib": 300.98,
+      "status": "completed",
+      "vehicles": 5
+    },
+    {
+      "case": "blank_120s_720p",
+      "seconds": 10.52,
+      "cpu_seconds": 19.208,
+      "peak_rss_mib": 331.16,
+      "end_rss_mib": 116.09,
+      "status": "no_detection",
+      "vehicles": 0
+    }
+  ],
+  "startup_rss_mib": 29.96875,
+  "source_video": {
+    "fps": 30.0,
+    "frames": 790.0,
+    "width": 720.0,
+    "height": 1280.0
+  },
+  "post_work_idle_rss_mib": 14.88,
+  "sqlite_backup_counts": {
+    "sessions": 1,
+    "answers": 5
+  },
+  "restart_preserved": true,
+  "restore_preserved": true,
+  "verified_video_files": 14,
+  "storage_bytes": 28627524
+}

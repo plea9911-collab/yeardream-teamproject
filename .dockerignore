@@ -1,0 +1,12 @@
+.git
+.venv
+runtime
+models
+__pycache__
+**/__pycache__
+*.sqlite3
+*.sqlite3-*
+.env
+.env.*
+settings.json
+*.pt

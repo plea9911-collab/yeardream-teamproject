@@ -81,7 +81,7 @@ class VideoJobs:
                 self.slots.release()
 
 
-def create_web_app(database, jobs):
+def create_web_app(database, jobs, *, public_origin=None):
     backend = create_app(ROOT, database, registry=REGISTRY)
     sessions = service(database)
 
@@ -96,12 +96,13 @@ def create_web_app(database, jobs):
         def error(code, message):
             return respond(code, {'error': {'message': message}})
         host = env.get('HTTP_HOST', '').split(':')[0]
-        if host not in ('127.0.0.1', 'localhost'):
+        allowed = env.get('HTTP_HOST', '') == public_origin.split('://', 1)[1] if public_origin else host in ('127.0.0.1', 'localhost')
+        if not allowed:
             return error(403, '로컬 주소에서만 사용할 수 있습니다.')
         # No cross-origin mutations for a local application without authentication.
         if method not in ('GET', 'HEAD'):
             origin = env.get('HTTP_ORIGIN')
-            if origin and origin != 'http://' + env.get('HTTP_HOST', ''):
+            if origin and origin != (public_origin or 'http://' + env.get('HTTP_HOST', '')):
                 return error(403, '다른 사이트에서의 요청은 허용되지 않습니다.')
         if path in STATIC:
             if method != 'GET':
