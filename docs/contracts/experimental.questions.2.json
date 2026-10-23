@@ -1,0 +1,22 @@
+{
+  "contract_version": "experimental.questions.2",
+  "status": "experimental; not adopted team contract",
+  "base": "experimental.questions.1 single-choice shape kept; old contract file immutable",
+  "differences": [
+    "multiple terminals list indexed by question_id and option_id instead of one top-level terminal",
+    "every complete rule has exactly one validated terminal; noncomplete rules have none",
+    "terminal source_ref matches option source_ref.result; HTTP200 POST matching source chart required",
+    "acyclic and fully reachable question graph required",
+    "conditions.source_dN_text contains selected source phrase only"
+  ],
+  "unchanged": [
+    "production VERSION/PIN",
+    "v1 loading and context",
+    "API routes and SQLite schema",
+    "single/min1/max1",
+    "vehicle assignments remain null"
+  ],
+  "new_adapter": "MultiTerminalQuestionAdapter in actual session_core.py",
+  "registry": "explicit only; use session08_input.json QuestionRef, no default replacement",
+  "intermediate_v1_bundle": "collection-only snapshot; does not provide path-specific chart in legacy get_context; do not use as final input"
+}

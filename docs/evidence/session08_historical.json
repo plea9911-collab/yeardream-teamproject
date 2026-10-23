@@ -1,0 +1,199 @@
+{
+  "label": "session08 historical verification, before later v2 code commit; not rerun in session09",
+  "service_SQLite_v2_terminal_paths": 108,
+  "HTTP": "representative path, revision and recompletion, not all108",
+  "source_scope": "captured myaccident1 car candidates; not whole association site",
+  "synthetic": "multiple selection and injected faults only; no disk/power failure",
+  "results": {
+    "status": "passed",
+    "versions": {
+      "v1": {
+        "version": "knia-rep-v1-9aaf88ec211ea3ab",
+        "contract": "experimental.questions.1",
+        "sha256": "ccbd797a539f763e6d9ecb9294b9fe03c83acf7b95518e521313bcb5c2b9daff"
+      },
+      "v2": {
+        "question_file": {
+          "path": "outputs/session07_collection/runs/live_final/datasets/knia-car-v2-dd12c7da4fc9b210/questions.json",
+          "sha256": "48c4f7359adecf1f92f2f6ae16d1c2a64fa57856f59b0f2221ff6a40a89494c9"
+        },
+        "data_version": "knia-car-v2-dd12c7da4fc9b210",
+        "contract_version": "experimental.questions.2",
+        "collection_checkpoint": {
+          "path": "outputs/session07_collection/runs/live_final/checkpoint.json",
+          "sha256": "8d55d053ccebc0c219f86f26732f863654a0142b3534207981c155582ac59e1c"
+        },
+        "collection_source_ref": {
+          "path": "outputs/session07_collection/runs/live_final/datasets/knia-car-v1-0a5c05b0ca833819/questions.json",
+          "sha256": "a2ac3dd4c767066a55a17a22f998030e33c9c4b7ddedc24e35811899d7266a37"
+        },
+        "production_default_changed": false,
+        "session08_started": false,
+        "scope": {
+          "all_html_rows": 297,
+          "car_root": "2",
+          "car_ancestry_rows": 158,
+          "reachable_car_rows": 158,
+          "unreachable_car_rows": [],
+          "shadowed_descendants": [],
+          "excluded_noncar_rows": 139,
+          "invalid_ancestry": {},
+          "question_count": 51,
+          "option_count": 160,
+          "terminal_candidate_paths": 108,
+          "unique_chart_requests": 108,
+          "discovery_complete_for_captured_UI": true,
+          "global_KNIA_completeness_claimed": false
+        },
+        "prerequisites": [
+          "team adoption of experimental contracts",
+          "vehicle-role mapping remains unconfirmed",
+          "global site completeness beyond captured UI remains unconfirmed"
+        ]
+      }
+    },
+    "source_graph_checks": 1125,
+    "synthetic_collection_checks": 18,
+    "manifest_file_checks": 1265,
+    "synthetic_adapter_checks": 12,
+    "app_runs": [
+      {
+        "path": "app_verification/8bba489fe39a4f7cb14f076aca0fd719/verification.json",
+        "status": "passed",
+        "checks": 997,
+        "failures": []
+      },
+      {
+        "path": "app_verification/e6b2f162edb1489890ceea9994610037/verification.json",
+        "status": "failed",
+        "checks": 983,
+        "failures": [
+          {
+            "name": "verifier execution",
+            "passed": false,
+            "error_type": "URLError",
+            "error": "<urlopen error [WinError 10013] 액세스 권한에 의해 숨겨진 소켓에 액세스를 시도했습니다>"
+          }
+        ]
+      }
+    ],
+    "integration_runs": [
+      {
+        "path": "integration/169b3df5c74f4a5d9013aa64ea07b776/verification.json",
+        "status": "passed",
+        "checks": 92,
+        "scope": {
+          "v1_service_completed_paths": 1,
+          "v1_uncollected": 18,
+          "v2_service_exhaustive_in_other_report": 108,
+          "v2_HTTP_initial_complete_paths": 1,
+          "v2_HTTP_recompletion_paths": 1,
+          "mixed_restart_GET_sessions": 3,
+          "mixed_restart_context_sessions": 3,
+          "database": "C:\\Users\\dbfk3\\OneDrive\\문서\\ChatGPT\\팀플은핑계고-프로젝트\\outputs\\session08_integration\\integration\\169b3df5c74f4a5d9013aa64ea07b776\\mixed.sqlite3",
+          "registry": {
+            "knia-rep-v1-9aaf88ec211ea3ab": {
+              "path": "outputs/session03_representative/runs/live_final/datasets/knia-rep-v1-9aaf88ec211ea3ab/questions.json",
+              "sha256": "ccbd797a539f763e6d9ecb9294b9fe03c83acf7b95518e521313bcb5c2b9daff",
+              "question_schema_version": "knia-rep-v1-9aaf88ec211ea3ab",
+              "contract_version": "experimental.questions.1"
+            },
+            "knia-car-v2-dd12c7da4fc9b210": {
+              "path": "outputs/session07_collection/runs/live_final/datasets/knia-car-v2-dd12c7da4fc9b210/questions.json",
+              "sha256": "48c4f7359adecf1f92f2f6ae16d1c2a64fa57856f59b0f2221ff6a40a89494c9",
+              "question_schema_version": "knia-car-v2-dd12c7da4fc9b210",
+              "contract_version": "experimental.questions.2"
+            }
+          }
+        },
+        "failures": []
+      }
+    ],
+    "regression_checks": 116,
+    "revision_checks": 82,
+    "HTTP_regression_checks": 45,
+    "synthetic_edge_checks": 58,
+    "external_requests": 0,
+    "default_PIN_changed": false,
+    "app_modified": false,
+    "completion_levels": {
+      "implementation_integration": "verified within experimental contracts",
+      "captured_UI_car_paths": "108 service/SQLite complete paths verified",
+      "all_108_paths_HTTP": "not executed",
+      "global_association_completeness": "unconfirmed",
+      "team_contract_adoption": "unconfirmed",
+      "production_PIN_switch": "not performed"
+    }
+  },
+  "limits": {
+    "status": "passed_with_explicit_limits",
+    "rows": [
+      {
+        "requirement": "1 질문·과거 대화 기억",
+        "supported": "stored question text/public history, isolated sessions, GET read-only, SQLite persistence",
+        "evidence": [
+          "regression116",
+          "integration92 dual-version restart"
+        ],
+        "limit": "friendly wording is stored source wording; no LLM rewriting"
+      },
+      {
+        "requirement": "2 선택·다음 문답",
+        "supported": "single/min1/max1 actual v1/v2; explicit routing and validation",
+        "evidence": [
+          "v2 service108 complete paths",
+          "v1 uncollected18 / v2 uncollected2 refused"
+        ],
+        "limit": "multiple selection tested only via synthetic MultipleFixtureLoader; current real adapter does not support production multiple datasets"
+      },
+      {
+        "requirement": "3 완료·영상 첨부 안내",
+        "supported": "explicit complete only, next_action=upload_video and Korean prompt",
+        "evidence": [
+          "v2 service108",
+          "HTTP start/complete/revise/recomplete"
+        ],
+        "limit": "no real upload/analysis"
+      },
+      {
+        "requirement": "이전 답변 수정·revision",
+        "supported": "append save separate from revise; no-op does not write; stale409; replace/truncate/CAS atomic",
+        "evidence": [
+          "revision82",
+          "HTTP45",
+          "edge58",
+          "integration92"
+        ],
+        "limit": "fault injection/threads are synthetic; no power loss"
+      },
+      {
+        "requirement": "내 차/상대 차·context",
+        "supported": "selected conditions/answer_refs, path terminal provenance, internal get_context",
+        "evidence": [
+          "v2 all108 context checks",
+          "revision discarded terminal replacement"
+        ],
+        "limit": "vehicle roles remain null/unconfirmed; source ratios not assigned"
+      },
+      {
+        "requirement": "수집 원본·전체 범위",
+        "supported": "saved UI car158 rows,51 questions160 options108 terminal results reconciled",
+        "evidence": [
+          "offline1125",
+          "manifest1265",
+          "source_refs_verified.json"
+        ],
+        "limit": "no new external requests; whole association site completeness unconfirmed"
+      },
+      {
+        "requirement": "도표 없는 완료",
+        "supported": "verified only with synthetic v1 fixture with terminal={}",
+        "evidence": [
+          "revision82",
+          "edge58"
+        ],
+        "limit": "not an actual no-chart KNIA collected completion"
+      }
+    ]
+  }
+}

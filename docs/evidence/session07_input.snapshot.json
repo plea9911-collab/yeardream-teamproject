@@ -1,0 +1,39 @@
+{
+  "question_file": {
+    "path": "outputs/session07_collection/runs/live_final/datasets/knia-car-v2-dd12c7da4fc9b210/questions.json",
+    "sha256": "48c4f7359adecf1f92f2f6ae16d1c2a64fa57856f59b0f2221ff6a40a89494c9"
+  },
+  "data_version": "knia-car-v2-dd12c7da4fc9b210",
+  "contract_version": "experimental.questions.2",
+  "collection_checkpoint": {
+    "path": "outputs/session07_collection/runs/live_final/checkpoint.json",
+    "sha256": "8d55d053ccebc0c219f86f26732f863654a0142b3534207981c155582ac59e1c"
+  },
+  "collection_source_ref": {
+    "path": "outputs/session07_collection/runs/live_final/datasets/knia-car-v1-0a5c05b0ca833819/questions.json",
+    "sha256": "a2ac3dd4c767066a55a17a22f998030e33c9c4b7ddedc24e35811899d7266a37"
+  },
+  "production_default_changed": false,
+  "session08_started": false,
+  "scope": {
+    "all_html_rows": 297,
+    "car_root": "2",
+    "car_ancestry_rows": 158,
+    "reachable_car_rows": 158,
+    "unreachable_car_rows": [],
+    "shadowed_descendants": [],
+    "excluded_noncar_rows": 139,
+    "invalid_ancestry": {},
+    "question_count": 51,
+    "option_count": 160,
+    "terminal_candidate_paths": 108,
+    "unique_chart_requests": 108,
+    "discovery_complete_for_captured_UI": true,
+    "global_KNIA_completeness_claimed": false
+  },
+  "prerequisites": [
+    "team adoption of experimental contracts",
+    "vehicle-role mapping remains unconfirmed",
+    "global site completeness beyond captured UI remains unconfirmed"
+  ]
+}

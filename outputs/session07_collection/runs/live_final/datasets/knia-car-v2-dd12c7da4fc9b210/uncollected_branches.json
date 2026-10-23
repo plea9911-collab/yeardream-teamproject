@@ -1,0 +1,22 @@
+[
+  {
+    "question_id": "q_knia_d0_root",
+    "option_id": "o_1",
+    "source_code": "1",
+    "selection_path": [
+      "1"
+    ],
+    "reason": "outside_car_scope",
+    "collection_status": "uncollected"
+  },
+  {
+    "question_id": "q_knia_d0_root",
+    "option_id": "o_3",
+    "source_code": "3",
+    "selection_path": [
+      "3"
+    ],
+    "reason": "outside_car_scope",
+    "collection_status": "uncollected"
+  }
+]

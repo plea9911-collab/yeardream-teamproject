@@ -1,93 +1,19 @@
-# Experimental session backend (sessions 04–06)
+# 문답 백엔드 — 팀 실행 시작점
 
-Python 3.12 standard library WSGI + SQLite. Team contract not established.
-Python 3.12 standard library only; no package installation required.
+Python 3.12 표준 라이브러리 sqlite3/wsgiref 기반 실험 백엔드입니다. 설치할 외부 패키지는 없습니다.
 
-Initialize the dedicated DB explicitly:
-`python -B main.py --init-db`
+먼저 [팀 인수인계 및 실행 절차](docs/TEAM_HANDOFF.md)를 읽으세요. 새 DB·개인경로 없는 설정·기본 v1 실행·명시 v2 서버·HTTP 예시·내부 get_context·오류/revision 정책·원본 감사 한계를 안내합니다.
 
-Run locally:
-`python -B main.py --port 8000`
+저장소 루트에서 공유 검증:
 
-POST /sessions with application/json:
-`{"question_schema_version":"knia-rep-v1-9aaf88ec211ea3ab"}`
+```powershell
+python --version
+$env:PYTHONUTF8='1'
+python -B -X utf8 tools/team_check.py verify
+```
 
-GET /sessions/{session_id}
+매 실행 runtime/handoff/<UUID>에 새 DB와 verification.json을 생성합니다. 기존 DB와 개인 settings.json은 사용하지 않습니다. v1 기본 PIN을 유지하며 v2는 명시 registry의 실험 실행입니다. 팀 계약 채택과 차량 역할 대응, 협회 사이트 전체 완전성은 미확정입니다.
 
-See the session04_session_start README in the document workspace for full
-repository, transaction, error and verification handoff. This is a local
-development server; team FastAPI integration remains a future decision.
+기본 v1은 main.py에 새 상대경로 config를 명시하여 실행합니다. 명시 v2 실험 서버는 `python -B -X utf8 tools/team_check.py serve --port 8008`입니다. 자세한 준비와 재시작 방법은 인수인계 문서를 따르세요.
 
-## Session 05 experimental extension
-
-POST /sessions/{id}/answers (application/json), exact body fields:
-`{"question_id":"q_knia_d0_root","selected_option_ids":["o_2"],"expected_revision":0}`
-ID comes from the path; client labels/conditions are rejected. Success: 200.
-Existing start/get envelope remains experimental.sessions.1; new submission
-contract is experimental.answers.1 (draft, not team adopted). Stored snapshot history is server-owned with pinned provenance; public history
-projects question/option text and IDs without internal source metadata. Context is internal only:
-`SessionService(loader, repository).get_context(session_id)` using
-experimental.accident_context.1. No context HTTP route is registered.
-
-BEGIN IMMEDIATE, current-state/revision validation, snapshot INSERT, conditional
-session UPDATE with rowcount=1, readback, explicit commit use one connection.
-Every other transaction exit rolls back. Factory: repository.transaction().
-save(record, expected_revision) is append-only and adds exactly one answer.
-Session06 implements editing through the separate revise method; revision is
-independent of history length. Do not reuse save for edits.
-
-## Session 06 experimental revision extension
-
-`PUT /sessions/{id}/answers/{question_id}` accepts the exact JSON body
-`{"selected_option_ids":[...],"expected_revision":N}`. It is an experimental
-draft beside (not a change to) the existing session and answer envelopes.
-The path question must already be stored. A stale revision is always 409, even
-for equal selections. Equal selected sets return 200 with `changed:false` and
-make no write. A changed selection replaces the server-built snapshot, deletes
-all later answers, recalculates the next question or explicit completion, and
-increments session revision once in one SQLite transaction. Cancellation is
-the client making no PUT; there is no cancellation endpoint.
-
-`answer_order` is the contiguous position in retained history. `revision` is a
-monotonic session mutation version and need not equal history length. Answer
-snapshot revisions are strictly increasing retained mutation revisions. Session
-05 records remain valid because their answer revisions and history lengths are
-equal. `SQLiteTransaction.save` remains append-only; `revise` owns replacement
-and suffix deletion. Consumers of context/search results must bind
-`session_id`, `revision`, and `question_schema_version`, then recheck the
-latest revision immediately before use and discard a mismatched result.
-
-Errors: 422 malformed request/type/count/duplicate/unknown option/uncollected;
-404 missing session; 409 revision_conflict, question_mismatch, session_completed;
-503 storage_unavailable; 500 routing/data/pin integrity errors. No implicit
-completion or idempotency. All rejected submissions preserve prior state.
-Completion returns upload_video and the Korean attachment prompt; video upload
-itself is outside this backend's implemented scope.
-
-Verification (from the document workspace, Python 3.12 standard library):
-`python -B outputs/session05_answers/verify.py`
-It creates a new dedicated verification DB each run and never resets runtime DB.
-See outputs/session05_answers/README.md in that workspace for detailed handoff.
-
-## Portable checkout setup
-
-The default uses local settings.json when present, otherwise settings.example.json.
-Relative paths resolve from the config file directory. Copy settings.example.json
-to settings.json only if local overrides are needed; personal settings are ignored.
-
-On a fresh checkout only, initialize your own empty runtime database:
-`python -B main.py --init-db`
-Then run `python -B main.py --port 8000`. Existing runtime databases are never
-committed, reset, or replaced.
-
-The exact pinned representative JSON and experimental question contract are
-included under outputs/session03_representative. This covers five single-choice
-questions, 23 options, 18 uncollected branches and one verified completion, not
-the full dataset. Original provenance paths refer to separately retained capture
-artifacts in the document workspace; those raw captures are not included here.
-
-Session06 verification in that workspace passed: prior regression 116, revision
-service/SQLite 82, actual HTTP 45, synthetic multiple/exception 60 checks.
-Valid alternative branch changes are synthetic tests because each production
-question currently has only one collected valid choice. No disk-fault or power-loss
-testing is claimed.
+질문 JSON은 v1/v2 SHA를 고정하고 바이트를 보존했습니다. runtime DB·캐시·개인 설정은 공유하지 않습니다. API 동작과 선택적 서비스108경로 검증은 저장소로 가능하지만 raw 원본 전체 감사에는 별도 아카이브가 필요합니다. 파일별 참조는 [외부 감사 manifest](docs/evidence/external_audit_manifest.json), 과거 검증 범위는 [세션08 역사 기록](docs/evidence/session08_historical.json)을 참조하세요. 과거 결과는 이번 실행 결과와 구분합니다.
