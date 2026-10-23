@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>사고 상황 기록 · 팀플은 핑계고</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="brand"
+        ><span class="brand-mark">길</span> 사고 상황 기록</a
+      ><span class="tag">팀 프로젝트 · 로컬 실험</span>
+    </header>
+    <div class="layout">
+      <aside>
+        <p class="eyebrow">차근차근, 함께 확인해요</p>
+        <h1>기억나는 순간부터 <br />정리해 보세요.</h1>
+        <p class="muted">사고 상황을 선택하고 영상 속 차량을 확인합니다.</p>
+        <ol id="steps">
+          <li>01 <span>사고 상황 선택</span></li>
+          <li>02 <span>영상 첨부</span></li>
+          <li>03 <span>감지 장면 확인</span></li>
+        </ol>
+        <div class="scope">
+          <strong>이 화면에서 할 수 있는 일</strong>
+          <p>
+            차대차 사고 문답과 차량 감지 사진 저장을 지원합니다. 사고 순간
+            판정과 과실비율 산정은 포함하지 않습니다.
+          </p>
+        </div>
+      </aside>
+      <main>
+        <div class="topline">
+          <span id="phase">시작하기</span
+          ><button id="restart" class="text-button" hidden>새 대화</button>
+        </div>
+        <div id="notice" role="alert" hidden></div>
+        <div id="app" aria-live="polite"></div>
+      </main>
+    </div>
+    <footer>
+      영상과 답변은 이 실행 컴퓨터에 저장됩니다. 외부 AI 서비스로 전송하지
+      않습니다.
+    </footer>
+  </body>
+</html>

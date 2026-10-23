@@ -6,3 +6,8 @@ runtime/
 settings.json
 .env
 .env.*
+
+# Local video assets and Python environment
+.venv/
+models/
+*.pt
