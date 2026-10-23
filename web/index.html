@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>사고 상황 기록 · 팀플은 핑계고</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#app">본문으로 이동</a>
+    <header>
+      <a href="/" class="brand"
+        ><span class="brand-mark">길</span> 사고 상황 기록</a
+      ><span class="tag">차대차 사고 · 영상 확인</span>
+    </header>
+    <div class="layout">
+      <nav aria-label="진행 단계">
+        <ol id="steps">
+          <li class="active"><b>1</b><span>상황 선택</span></li>
+          <li><b>2</b><span>영상 첨부</span></li>
+          <li><b>3</b><span>사진 확인</span></li>
+        </ol>
+      </nav>
+      <main>
+        <div class="topline">
+          <span id="phase">시작하기</span
+          ><button id="restart" class="text-button" hidden>새 기록 시작</button>
+        </div>
+        <div id="notice" role="alert" hidden></div>
+        <div id="app" tabindex="-1"></div>
+      </main>
+    </div>
+    <footer>
+      영상과 답변은 서비스를 실행하는 서버에 저장됩니다. 외부 AI 서비스로 전송하지
+      않습니다.<br />현재는 사고 상황 선택과 차량 감지 사진을 제공합니다.
+    </footer>
+  </body>
+</html>
