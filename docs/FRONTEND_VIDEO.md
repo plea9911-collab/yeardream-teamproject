@@ -99,3 +99,7 @@ YOLO 결과 사용법: https://docs.ultralytics.com/modes/predict/
 재검증: 기존 26개, 연결 테스트 6개, JS 구문 검사 통과. Chrome에서 4문답을 선택/다음으로 제출하고 실제 수업 영상을 다시 업로드해 5대와 두 JPEG를 확인했습니다. 원본 이미지 경로 전환, 확대 전후 폭 438.75→877.5px(2배), Esc 초점 복원, 사진 다운로드, 같은 답변 수정 시 결과 유지, 새로고침 복원을 확인했습니다. 390px 화면에서 문서 폭도 390px이며 모바일 확대·비교·닫기 동작을 확인했습니다. 모바일 실기기 테스트는 수행하지 않았습니다.
 
 설계 참고: [KNIA 단계별 상황 선택](https://accident.knia.or.kr/myaccident1), [Progressive 사진 안내](https://www.progressive.com/claims/faq/guided-photo/), [FiftyOne 이미지 검토](https://docs.voxel51.com/user_guide/app.html). 공식 사이트의 이미지나 문구를 복제하지 않고 흐름과 사진 검토 방식을 참고했습니다.
+
+## 팀 공유·저장·배포
+
+브랜치 받기, DB/영상 저장 위치, 백업 명령, 배포 전 남은 작업은 [DEPLOYMENT_STORAGE.md](DEPLOYMENT_STORAGE.md)를 참고하세요. 현재 공동 서버에 배포한 상태는 아닙니다.

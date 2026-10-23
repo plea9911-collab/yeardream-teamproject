@@ -53,6 +53,25 @@ class WebAppTests(unittest.TestCase):
     def url(self, filename='sample.mp4', revision=None):
         return f"/video-jobs?session_id={self.state['session_id']}&revision={self.state['revision'] if revision is None else revision}&filename={filename}"
 
+    def test_duplicate_progress_is_not_written_again(self):
+        self.complete()
+        def analyzer(source, folder, model, progress):
+            for value in (0, 1, 1, 2, 2):
+                progress(value)
+            return {'status': 'no_detection', 'progress': 100, 'detections': []}
+        self.jobs.analyzer = analyzer
+        writes = []
+        save = self.jobs.save
+        def recording_save(data):
+            writes.append((data['status'], data['progress']))
+            save(data)
+        self.jobs.save = recording_save
+        code, body, _ = self.call('POST', self.url(), b'video')
+        self.assertEqual(code, 202)
+        self.jobs.pool.shutdown(wait=True)
+        self.assertEqual(self.jobs.get(json.loads(body)['job_id'])['status'], 'no_detection')
+        self.assertEqual([p for status, p in writes if status == 'processing'], [0, 1, 2])
+
     def test_frontend_and_existing_api(self):
         for path in ['/', '/app.js', '/style.css','/app-config']:
             self.assertEqual(self.call('GET',path)[0],200)

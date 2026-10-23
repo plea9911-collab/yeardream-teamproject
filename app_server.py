@@ -64,8 +64,10 @@ class VideoJobs:
             data.update(status='processing', message='차량을 찾고 있습니다.')
             self.save(data)
             def progress(value):
-                data['progress'] = value
-                self.save(data)
+                # Sampling can report the same rounded percentage repeatedly.
+                if value != data['progress']:
+                    data['progress'] = value
+                    self.save(data)
             data.update(self.analyzer(source, source.parent, self.model, progress))
         except VideoError as exc:
             data.update(status='failed', message=str(exc))
