@@ -10,6 +10,9 @@ let state = null,
   preview = null,
   job = null,
   timer = null;
+let selected = null,
+  selectedQuestion = null,
+  imageMode = "detected";
 const errors = {
   revision_conflict:
     "다른 창에서 답변이 바뀌었습니다. 최신 상태를 불러왔으니 다시 선택해 주세요.",
@@ -88,6 +91,11 @@ async function action(fn) {
   } finally {
     busy = false;
     render();
+    const heading = app.querySelector("h2");
+    if (heading) {
+      heading.tabIndex = -1;
+      heading.focus({ preventScroll: true });
+    }
   }
 }
 async function start() {
@@ -98,6 +106,8 @@ async function start() {
     clearVideo();
     state = next;
     editing = null;
+    selectedQuestion = null;
+    selected = null;
     remember();
   });
 }
@@ -119,6 +129,8 @@ async function answer(option) {
       });
     }
     editing = null;
+    selectedQuestion = null;
+    selected = null;
     remember();
   });
 }
@@ -133,14 +145,17 @@ function render() {
       : job?.status === "completed"
         ? 2
         : 1;
-  [...$("steps").children].forEach((n, i) =>
-    n.classList.toggle("active", phase === i),
-  );
+  [...$("steps").children].forEach((n, i) => {
+    n.classList.toggle("active", phase === i);
+    if (phase === i) n.setAttribute("aria-current", "step");
+    else n.removeAttribute("aria-current");
+  });
   $("phase").textContent = [
     "01 / 사고 상황 선택",
     "02 / 영상 첨부",
     "03 / 감지 장면 확인",
   ][phase];
+  app.classList.toggle("result-layout", phase === 2);
   if (!state) {
     const c = element("section", undefined, "card");
     c.append(
@@ -192,6 +207,7 @@ function render() {
       row.append(edit);
       d.append(row);
     }
+    if (state.status === "completed" && !editing) d.open = !job;
     app.append(d);
   }
   const c = element("section", undefined, "card");
@@ -205,6 +221,11 @@ function render() {
         "intro-icon",
       ),
       element("h2", q.text),
+      element(
+        "p",
+        "해당하는 상황을 하나 고른 뒤 다음으로 넘어가세요.",
+        "muted",
+      ),
     );
     if (editing)
       c.append(
@@ -214,23 +235,62 @@ function render() {
           "warning",
         ),
       );
-    const choices = element("div", undefined, "choices");
-    for (const o of q.options) {
-      const b = button(
-        o.label + (o.collection_status !== "verified" ? " · 준비 중" : ""),
-        () => answer(o.option_id),
-        "choice",
-      );
-      b.disabled = busy || o.collection_status !== "verified";
-      choices.append(b);
+    if (selectedQuestion !== q.question_id) {
+      selectedQuestion = q.question_id;
+      selected = editing
+        ? state.history.find((h) => h.question_id === q.question_id)
+            ?.selected_option_ids[0]
+        : null;
     }
-    c.append(choices);
+    const choices = element("div", undefined, "choices");
+    choices.setAttribute("role", "radiogroup");
+    choices.setAttribute("aria-label", "사고 상황 선택");
+    const next = button(editing ? "답변 수정 완료" : "다음", () =>
+      answer(selected),
+    );
+    next.disabled = busy || !selected;
+    for (const o of q.options) {
+      const label = element("label", undefined, "choice");
+      const radio = element("input");
+      radio.type = "radio";
+      radio.name = "answer";
+      radio.value = o.option_id;
+      radio.checked = selected === o.option_id;
+      radio.disabled = busy || o.collection_status !== "verified";
+      label.classList.toggle("unavailable", radio.disabled && !busy);
+      radio.onchange = () => {
+        selected = o.option_id;
+        next.disabled = busy;
+      };
+      const optionText = element("span", o.label);
+      const explanations = {
+        "같은 방향 진행차량 상호 간의 사고":
+          "두 차가 같은 방향으로 가던 중 발생한 사고",
+        "마주보는 방향 진행차량 상호 간의 사고":
+          "두 차가 서로 마주 오는 방향에서 발생한 사고",
+        "안전거리미확보로 인한 추돌사고":
+          "뒤따르던 차가 앞차의 뒷부분을 들이받은 상황",
+        "자동차 대 이륜차 특수유형": "자동차와 오토바이 사이의 사고 유형",
+      };
+      if (explanations[o.label])
+        optionText.append(
+          element("span", explanations[o.label], "option-help"),
+        );
+      label.append(radio, optionText);
+      if (o.collection_status !== "verified")
+        label.append(element("small", "준비 중"));
+      choices.append(label);
+    }
+    const navigation = element("div", undefined, "actions");
+    navigation.append(next);
+    c.append(choices, navigation);
     if (editing)
       c.append(
         button(
           "수정 취소",
           () => {
             editing = null;
+            selectedQuestion = null;
             render();
           },
           "text-button",
@@ -239,47 +299,106 @@ function render() {
     return;
   }
   if (job?.status === "completed") {
+    c.classList.add("result-card");
     c.append(
-      element("span", "차량 감지 완료", "intro-icon"),
-      element("h2", "영상에서 차량을 찾았어요."),
-      element("p", job.message, "warning"),
+      element("span", "영상 확인 완료", "intro-icon"),
+      element("h2", "차량이 보이는 장면을 찾았어요."),
+      element("p", "사진을 비교하고 필요한 장면을 저장하세요.", "muted"),
+    );
+    const workspace = element("div", undefined, "photo-workspace");
+    const viewer = element("div", undefined, "viewer");
+    const toolbar = element("div", undefined, "photo-toolbar");
+    const modes = element("div", undefined, "segmented");
+    modes.setAttribute("aria-label", "사진 표시 방식");
+    const img = element("img", undefined, "result-image");
+    const modeButtons = [];
+    const update = () => {
+      img.src = `/video-jobs/${job.job_id}/${imageMode}.jpg`;
+      img.alt =
+        imageMode === "detected"
+          ? "차량 위치에 네모 표시를 한 사진"
+          : "차량 표시 없는 같은 장면의 원본 사진";
+      modeButtons.forEach(([mode, b]) =>
+        b.setAttribute("aria-pressed", String(imageMode === mode)),
+      );
+    };
+    for (const [mode, title] of [
+      ["detected", "차량 표시"],
+      ["original", "원본"],
+    ]) {
+      const b = button(
+        title,
+        () => {
+          imageMode = mode;
+          update();
+        },
+        "mode-button",
+      );
+      modeButtons.push([mode, b]);
+      modes.append(b);
+    }
+    const enlarge = button(
+      "사진 확대 ↗",
+      () => openPhoto(enlarge),
+      "text-button",
+    );
+    toolbar.append(modes, enlarge);
+    update();
+    viewer.append(
+      toolbar,
+      img,
+      element("p", "같은 시점의 원본과 차량 표시 사진입니다.", "image-caption"),
+    );
+    const info = element("aside", undefined, "result-info");
+    info.append(element("h3", "장면 정보"));
+    const stats = element("dl", undefined, "stats");
+    for (const [key, value] of [
+      ["영상 시점", `${job.timestamp_seconds.toFixed(2)}초`],
+      ["감지된 차량", `${job.detections.length}대`],
+    ]) {
+      stats.append(element("dt", key), element("dd", value));
+    }
+    info.append(
+      stats,
       element(
         "p",
-        `${job.timestamp_seconds.toFixed(2)}초 장면 · 차량 ${job.detections.length}개`,
-        "muted",
+        "차량이 처음 감지된 장면입니다. 충돌 순간이나 과실비율을 판단한 결과는 아닙니다.",
+        "result-note",
       ),
     );
-    const img = element("img", undefined, "result-image");
-    img.src = `/video-jobs/${job.job_id}/detected.jpg`;
-    img.alt = "차량 위치에 네모 표시를 한 영상 추출 사진";
-    c.append(img);
-    for (const d of job.detections)
-      c.append(
-        element(
-          "span",
-          `${{ car: "승용차", motorcycle: "오토바이", bus: "버스", truck: "트럭" }[d.label] || d.label} · 모델 점수 ${Math.round(d.confidence * 100)}%`,
-          "pill",
-        ),
-      );
-    const links = element("div", undefined, "actions");
-    for (const [name, label] of [
-      ["detected", "네모 표시 사진 저장"],
+    for (const [name, title] of [
+      ["detected", "차량 표시 사진 저장"],
       ["original", "원본 사진 저장"],
     ]) {
-      const a = element("a", label, "secondary");
-      a.href = `/video-jobs/${job.job_id}/${name}.jpg`;
-      a.download = `${name}.jpg`;
-      links.append(a);
+      const link = element(
+        "a",
+        title,
+        name === "detected" ? "primary" : "secondary",
+      );
+      link.href = `/video-jobs/${job.job_id}/${name}.jpg`;
+      link.download = `${name}.jpg`;
+      info.append(link);
     }
-    c.append(
-      links,
+    const technical = element("details", undefined, "technical");
+    technical.append(element("summary", "인식 정보 자세히 보기"));
+    for (const d of job.detections)
+      technical.append(
+        element(
+          "p",
+          `${{ car: "승용차", motorcycle: "오토바이", bus: "버스", truck: "트럭" }[d.label] || d.label} · 모델 점수 ${Math.round(d.confidence * 100)}%`,
+        ),
+      );
+    technical.append(
       element(
         "p",
-        "모델 점수는 인식 결과에 대한 점수이며 사고 확률이나 과실비율이 아닙니다.",
+        "모델 점수는 인식에 대한 점수이며 사고 확률이나 과실비율이 아닙니다.",
         "hint",
       ),
+    );
+    info.append(
+      technical,
       button(
-        "다른 영상 분석",
+        "다른 영상 선택",
         () => {
           clearVideo();
           remember();
@@ -288,6 +407,8 @@ function render() {
         "text-button",
       ),
     );
+    workspace.append(viewer, info);
+    c.append(workspace);
     return;
   }
   c.append(
@@ -300,7 +421,9 @@ function render() {
     ),
   );
   if (job && ["queued", "processing", "uploading"].includes(job.status)) {
-    c.append(element("p", job.message));
+    const status = element("p", job.message);
+    status.setAttribute("role", "status");
+    c.append(status);
     const p = element("progress");
     p.max = 100;
     p.value = job.progress;
@@ -318,7 +441,10 @@ function render() {
   }
   if (job) c.append(element("p", job.message, "warning"));
   const label = element("label", undefined, "upload");
-  label.append(element("span", "분석할 영상 선택"));
+  label.append(
+    element("strong", file ? "다른 영상으로 변경" : "분석할 영상 선택"),
+    element("span", "블랙박스 또는 CCTV 파일을 불러오세요.", "muted"),
+  );
   const input = element("input");
   input.type = "file";
   input.accept = ".mp4,.mov,.avi,.mkv,.webm";
@@ -379,6 +505,84 @@ function render() {
       "관련 법규·판례와 과실비율 해설은 팀의 별도 기능과 연결할 예정입니다.",
       "hint",
     ),
+  );
+}
+function openPhoto(trigger) {
+  const dialog = element("dialog", undefined, "photo-dialog");
+  dialog.setAttribute("aria-label", "사진 확대 보기");
+  const toolbar = element("div", undefined, "zoom-toolbar");
+  const title = element("strong", "사진 확대 보기");
+  const stage = element("div", undefined, "zoom-stage");
+  stage.tabIndex = 0;
+  stage.setAttribute("aria-label", "확대된 사진. 방향키로 이동할 수 있습니다.");
+  const image = element("img");
+  let zoom = 1,
+    mode = imageMode;
+  const scale = element("span", "화면에 맞춤", "zoom-scale");
+  const update = () => {
+    image.src = `/video-jobs/${job.job_id}/${mode}.jpg`;
+    image.alt =
+      mode === "original" ? "확대한 원본 사진" : "확대한 차량 표시 사진";
+    const fit = () => {
+      if (!image.naturalWidth || !stage.clientHeight) return;
+      const ratio = Math.min(
+        (stage.clientWidth - 32) / image.naturalWidth,
+        (stage.clientHeight - 32) / image.naturalHeight,
+      );
+      image.style.width = `${image.naturalWidth * ratio * zoom}px`;
+      image.style.height = `${image.naturalHeight * ratio * zoom}px`;
+    };
+    image.onload = fit;
+    requestAnimationFrame(fit);
+    scale.textContent = zoom === 1 ? "화면에 맞춤" : `확대 ${zoom}배`;
+  };
+  const toggle = button(
+    mode === "detected" ? "원본 보기" : "차량 표시 보기",
+    () => {
+      mode = mode === "detected" ? "original" : "detected";
+      toggle.textContent = mode === "detected" ? "원본 보기" : "차량 표시 보기";
+      update();
+    },
+    "secondary",
+  );
+  toolbar.append(
+    title,
+    toggle,
+    button(
+      "축소 −",
+      () => {
+        zoom = Math.max(1, zoom - 1);
+        update();
+      },
+      "secondary",
+    ),
+    scale,
+    button(
+      "확대 +",
+      () => {
+        zoom = Math.min(4, zoom + 1);
+        update();
+      },
+      "secondary",
+    ),
+    button("닫기 ✕", () => dialog.close(), "secondary"),
+  );
+  stage.append(image);
+  dialog.append(toolbar, stage);
+  dialog.addEventListener("close", () => {
+    dialog.remove();
+    trigger.focus();
+  });
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  document.body.append(dialog);
+  dialog.showModal();
+  update();
+  const resize = () => update();
+  window.addEventListener("resize", resize);
+  dialog.addEventListener("close", () =>
+    window.removeEventListener("resize", resize),
   );
 }
 function uploadVideo() {

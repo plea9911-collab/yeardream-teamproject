@@ -86,3 +86,16 @@ python tests/video_smoke.py /경로/차량이보이는영상.mp4
 수업 코드 참고: https://github.com/iciaGit/yeardream2026/tree/main/YOLO/basic
 수업 샘플(저장소에 재배포하지 않음): https://github.com/iciaGit/yeardream2026/blob/main/YOLO/sample.mp4
 YOLO 결과 사용법: https://docs.ultralytics.com/modes/predict/
+
+
+## 화면 개선 및 재확인 (2026-10-23)
+
+- 상단 3단계 진행 표시, 질문 한 화면씩 선택 → 다음 버튼으로 제출. 일부 어려운 선택지에 쉬운 풀이를 추가했으며 원래 질문/선택지와 분기 ID는 보존했습니다.
+- 영상 첨부 전에 선택한 답변을 펼쳐 검토·수정합니다. 기존 수정/복원/영상 무효화 규칙을 유지합니다.
+- 결과는 큰 사진과 장면 정보로 구성합니다. ‘차량 표시 / 원본’ 버튼은 같은 프레임의 이미지를 전환합니다.
+- ‘사진 확대’는 별도 대화상자를 열고 화면에 맞춤부터 최대 4배까지 확대·축소합니다. 확대 화면에서도 원본 전환이 가능하며 스크롤로 사진을 이동합니다. Esc 또는 닫기로 돌아오면 확대 버튼에 키보드 초점이 복원됩니다.
+- 모델 점수는 ‘인식 정보 자세히 보기’ 안에 둡니다. 사고 순간·과실비율로 표시하지 않습니다.
+
+재검증: 기존 26개, 연결 테스트 6개, JS 구문 검사 통과. Chrome에서 4문답을 선택/다음으로 제출하고 실제 수업 영상을 다시 업로드해 5대와 두 JPEG를 확인했습니다. 원본 이미지 경로 전환, 확대 전후 폭 438.75→877.5px(2배), Esc 초점 복원, 사진 다운로드, 같은 답변 수정 시 결과 유지, 새로고침 복원을 확인했습니다. 390px 화면에서 문서 폭도 390px이며 모바일 확대·비교·닫기 동작을 확인했습니다. 모바일 실기기 테스트는 수행하지 않았습니다.
+
+설계 참고: [KNIA 단계별 상황 선택](https://accident.knia.or.kr/myaccident1), [Progressive 사진 안내](https://www.progressive.com/claims/faq/guided-photo/), [FiftyOne 이미지 검토](https://docs.voxel51.com/user_guide/app.html). 공식 사이트의 이미지나 문구를 복제하지 않고 흐름과 사진 검토 방식을 참고했습니다.
