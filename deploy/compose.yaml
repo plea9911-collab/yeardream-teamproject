@@ -1,0 +1,31 @@
+services:
+  app:
+    build: ..
+    restart: unless-stopped
+    environment:
+      DATA_DIR: /data
+      PUBLIC_ORIGIN: https://${SITE_HOST:?Set SITE_HOST}
+      TEAM_PASSWORD: ${TEAM_PASSWORD:?Set TEAM_PASSWORD}
+      PORT: 8080
+    volumes:
+      - app_data:/data
+    expose:
+      - "8080"
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      SITE_HOST: ${SITE_HOST:?Set SITE_HOST}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+volumes:
+  app_data:
+  caddy_data:
+  caddy_config:
