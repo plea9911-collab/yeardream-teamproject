@@ -41,7 +41,13 @@ class VideoJobs:
         self.pool = ThreadPoolExecutor(max_workers=1)
         # Inference cannot survive process restart; leave a retriable state on disk.
         for file in self.root.glob('*/job.json'):
-            data = json.loads(file.read_text())
+            try:
+                data = json.loads(file.read_text(encoding='utf-8'))
+                if not isinstance(data, dict) or data.get('job_id') != file.parent.name or 'status' not in data:
+                    raise ValueError('Invalid job record')
+            except (ValueError, UnicodeError):
+                logging.warning('Unreadable job record retained: %s', file)
+                continue
             if data['status'] in ('queued', 'processing', 'uploading'):
                 data.update(status='failed', message='서버가 재시작됐습니다. 영상을 다시 첨부해 주세요.')
                 self.save(data)
@@ -185,6 +191,8 @@ def create_web_app(database, jobs, *, public_origin=None):
                 return respond(200, data)
             except FileNotFoundError:
                 return error(404, '영상 작업을 찾지 못했습니다.')
+            except (ValueError, UnicodeError, KeyError):
+                return error(503, '영상 작업 기록을 읽지 못했습니다. 관리자에게 복원을 요청해 주세요.')
         return backend(env, start)
     return app
 

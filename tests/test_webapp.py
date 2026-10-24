@@ -72,6 +72,19 @@ class WebAppTests(unittest.TestCase):
         self.assertEqual(self.jobs.get(json.loads(body)['job_id'])['status'], 'no_detection')
         self.assertEqual([p for status, p in writes if status == 'processing'], [0, 1, 2])
 
+    def test_corrupt_record_does_not_block_restart(self):
+        bad_id = 'a' * 32
+        folder = self.jobs.root / bad_id
+        folder.mkdir()
+        (folder / 'job.json').write_text('{broken', encoding='utf-8')
+        restarted = VideoJobs(self.jobs.root, self.model)
+        try:
+            self.assertEqual((folder / 'job.json').read_text(), '{broken')
+            self.assertEqual(self.call('GET', '/video-jobs/' + bad_id)[0], 503)
+            self.assertEqual(self.call('GET', '/app-config')[0], 200)
+        finally:
+            restarted.pool.shutdown(wait=True)
+
     def test_frontend_and_existing_api(self):
         for path in ['/', '/app.js', '/style.css','/app-config']:
             self.assertEqual(self.call('GET',path)[0],200)
