@@ -1,1 +1,15 @@
 # Python 3.12 standard library only; no external packages.
+
+# LangChain / LangGraph / LLM
+fastapi
+uvicorn[standard]
+langgraph
+langchain-ollama
+tavily-python
+
+# PDF 및 RAG
+python-dotenv
+langchain-chroma
+langchain-text-splitters
+pypdf
+cryptography

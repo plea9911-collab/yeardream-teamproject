@@ -1,0 +1,52 @@
+[
+  {
+    "chart_no": "차43-2",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차43-2&chartType=1",
+    "title": "1 차43-2 후행 직진 대 선행 진로변경 1,730,005 건 5.1%"
+  },
+  {
+    "chart_no": "차41-1",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차41-1&chartType=1",
+    "title": "2 차41-1 양 차량 주행 중 후방 추돌(앞차량 정지 직후 포함) 1,062,554 건 3.1%"
+  },
+  {
+    "chart_no": "차42-2",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차42-2&chartType=1",
+    "title": "3 차42-2 일반 도로 가장자리(갓길포함) 주·정차 803,129 건 2.4%"
+  },
+  {
+    "chart_no": "차51-1",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차51-1&chartType=1",
+    "title": "4 차51-1 통로주행 대 주차구획 출차 737,180 건 2.2%"
+  },
+  {
+    "chart_no": "차16-1",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차16-1&chartType=1",
+    "title": "5 차16-1 왼쪽 직진 대 오른쪽 좌회전 569,271 건 1.7%"
+  },
+  {
+    "chart_no": "차12-1",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차12-1&chartType=1",
+    "title": "6 차12-1 우측도로 직진 대 좌측도로 직진(동일폭) 532,017 건 1.6%"
+  },
+  {
+    "chart_no": "차13-1",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차13-1&chartType=1",
+    "title": "7 차13-1 오른쪽 우회전 대 왼쪽 직진 456,774 건 1.3%"
+  },
+  {
+    "chart_no": "차44-1",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차44-1&chartType=1",
+    "title": "8 차44-1 직진 대 도로가 아닌 장소에서 도로로 우회전 진입 432,574 건 1.3%"
+  },
+  {
+    "chart_no": "차43-1",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차43-1&chartType=1",
+    "title": "9 차43-1 차로 감소 도로 (합류) 사고 425,579 건 1.3%"
+  },
+  {
+    "chart_no": "차19-1",
+    "url": "https://accident.knia.or.kr/myaccident-content?chartNo=차19-1&chartType=1",
+    "title": "10 차19-1 후행 직진 대 선행 좌(우)회전 400,037 건 1.2%"
+  }
+]

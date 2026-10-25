@@ -1,1 +1,3 @@
 *.json -text
+
+*.pdf binary
