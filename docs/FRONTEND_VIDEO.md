@@ -25,7 +25,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe app_server.py
 ```
 
-브라우저에서 http://127.0.0.1:8010 을 엽니다. 포트 변경은 `--port 8011`, 모델 경로 지정은 `--model 모델경로`입니다. 종료는 Ctrl+C. Windows 실행법은 제공했으나 이번 실제 검증 기기는 macOS/CPU입니다.
+브라우저에서 http://127.0.0.1:8010 을 엽니다. 포트 변경은 `--port 8011`, 모델 경로 지정은 `--model 모델경로`입니다. 종료는 Ctrl+C. 2026-10-25 Windows에서도 CPU 전용 패키지·공식 모델 준비와 1초 합성 검은 영상의 no_detection을 확인했습니다. 실제 주행 영상의 차량 검출 성능·속도를 재평가한 것은 아닙니다.
 
 `prepare_video.py`는 Ultralytics가 배포하는 공식 YOLO26n 모델을 내려받아 확인합니다. 최초 설치·모델 준비에는 인터넷이 필요하지만, 앱의 문답·영상 처리는 로컬에서 실행합니다. 모델·입력 영상·사진·DB·개인 설정은 Git에 올리지 않습니다. 모델과 패키지의 라이선스는 해당 배포자의 조건을 따릅니다.
 
@@ -60,8 +60,9 @@ py -3.12 -m venv .venv
 | GET `/video-jobs/{job_id}` | uploading/queued/processing/completed/no_detection/failed 상태와 진행률 |
 | GET `/video-jobs/{job_id}/detected.jpg` | 차량 네모 표시 사진 |
 | GET `/video-jobs/{job_id}/original.jpg` | 같은 장면의 원본 사진 |
+| GET `/video-jobs/{job_id}/result` | 완료 문답과 업로드 revision 확인 후 저장된 협회 A/B 비율·기본 해설·법규·판례 반환. 영상 처리가 종료된 뒤 사용 |
 
-작업 결과에는 session_id/revision이 포함됩니다. 과실검색·RAG 담당자는 기존 내부 `get_context`를 사용하고, 결과를 합칠 때 최신 revision을 대조해야 합니다. 이 구현에서는 과실비율·법규·판례를 임의로 생성하거나 대신 구현하지 않았습니다.
+작업 결과에는 session_id/revision이 포함됩니다. 서버 내부 get_context의 검증된 chart_no로 data/accident_cases.json과 data/legal_references_by_chart.json을 조회합니다. 저장된 협회 A/B 비율·기본 해설과 PDF 원문·페이지·출처를 표시합니다. 31개 도표는 제공 PDF에 판례가 없어 빈 결과로 안내합니다. 답변 수정 시 결과도 409로 거절하며 영상 미검출·실패와 문답 기반 결과는 분리합니다. 실시간 검색·RAG·AI 생성은 수행하지 않습니다. 최신 범위는 [현재 작업 계획](CURRENT_PLAN.md)을 따릅니다.
 
 ## 저장과 재시작
 

@@ -9,7 +9,11 @@ let state = null,
   file = null,
   preview = null,
   job = null,
-  timer = null;
+  timer = null,
+  accidentResult = null,
+  resultLoading = false,
+  resultError = "",
+  resultRequest = 0;
 let selected = null,
   selectedQuestion = null,
   imageMode = "detected";
@@ -66,10 +70,141 @@ function remember() {
 function clearVideo() {
   clearTimeout(timer);
   timer = null;
+  resultRequest += 1;
+  accidentResult = null;
+  resultLoading = false;
+  resultError = "";
   job = null;
   file = null;
   if (preview) URL.revokeObjectURL(preview);
   preview = null;
+}
+function resultKey() {
+  return state && job?.job_id
+    ? `${state.session_id}:${state.revision}:${job.job_id}`
+    : null;
+}
+function isFinishedJob() {
+  return ["completed", "no_detection", "failed"].includes(job?.status);
+}
+async function loadAccidentResult(force = false) {
+  const key = resultKey();
+  if (!key || !isFinishedJob() || (accidentResult && !force) || resultLoading)
+    return;
+  const request = ++resultRequest;
+  resultLoading = true;
+  resultError = "";
+  render();
+  try {
+    const data = await api(`/video-jobs/${job.job_id}/result`);
+    if (request !== resultRequest || key !== resultKey()) return;
+    accidentResult = data;
+  } catch (e) {
+    if (request !== resultRequest || key !== resultKey()) return;
+    resultError = e.message;
+  } finally {
+    if (request === resultRequest && key === resultKey()) {
+      resultLoading = false;
+      render();
+    }
+  }
+}
+function safeSourceUrl(value) {
+  try {
+    const url = new URL(value);
+    return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+function appendReferences(container) {
+  if (!isFinishedJob()) return;
+  const section = element("section", undefined, "reference-results");
+  section.append(element("h3", "사고 상황 결과"));
+  if (resultLoading) {
+    section.append(element("p", "사고 유형에 맞는 자료를 불러오는 중입니다.", "muted"));
+  } else if (resultError) {
+    section.append(
+      element("p", resultError, "warning"),
+      button("관련 자료 다시 확인", () => loadAccidentResult(true), "secondary"),
+    );
+  } else if (accidentResult) {
+    const type = accidentResult.accident_type || accidentResult.summary;
+    if (type) section.append(element("p", type, "muted"));
+    appendFault(section, accidentResult.fault);
+    const addGroup = (title, items, status, emptyMessage) => {
+      const group = element("div", undefined, "reference-group");
+      group.append(element("h4", title));
+      if (!Array.isArray(items) || !items.length) {
+        group.append(
+          element(
+            "p",
+            status === "not_in_provided_pdf" ? emptyMessage : "관련 자료를 찾지 못했습니다.",
+            "hint",
+          ),
+        );
+      } else {
+        for (const item of items) {
+          const detail = element("details", undefined, "reference-item");
+          const label = item.content?.split(/\r?\n/)[0] || title;
+          detail.append(element("summary", label));
+          const pages = Array.isArray(item.pdf_pages) ? item.pdf_pages.join(", ") : "";
+          if (item.pdf_name || pages)
+            detail.append(element("p", `${item.pdf_name || "PDF"}${pages ? ` · ${pages}쪽` : ""}`, "hint"));
+          detail.append(element("p", item.content || "", "reference-content"));
+          const source = safeSourceUrl(item.source_url);
+          if (source) {
+            const link = element("a", "원문 출처 열기", "reference-link");
+            link.href = source;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            detail.append(link);
+          }
+          group.append(detail);
+        }
+      }
+      section.append(group);
+    };
+    addGroup("법규", accidentResult.laws, accidentResult.law_status, "제공된 PDF에 해당 사고유형의 법규가 없어요.");
+    addGroup("판례", accidentResult.precedents, accidentResult.precedent_status, "제공된 PDF에 해당 사고유형의 판례가 없어요.");
+  } else {
+    section.append(
+      button("사고 상황 결과 확인", () => loadAccidentResult(true), "secondary"),
+    );
+  }
+  container.append(section);
+}
+function appendFault(container, fault) {
+  const group = element("div", undefined, "reference-group");
+  group.append(element("h4", "유형별 기본 과실비율"));
+  if (fault?.status === "found" && fault.ratio) {
+    const stats = element("dl", undefined, "stats");
+    for (const key of ["A", "B"])
+      stats.append(element("dt", `자료의 차량 ${key}`), element("dd", `${fault.ratio[key]}%`));
+    group.append(stats, element("p", "A/B는 협회 자료의 차량 구분입니다. 내 차량·상대 차량으로 지정한 결과는 아닙니다.", "hint"));
+  } else {
+    group.append(element("p", "기본 과실비율 자료를 확인하지 못했어요.", "hint"));
+  }
+  if (fault?.accident_situation)
+    group.append(element("p", fault.accident_situation, "reference-content"));
+  if (fault?.explanation) {
+    group.append(element("h4", "기본 과실 해설"), element("p", fault.explanation, "reference-content"));
+  }
+  if (fault?.application_criteria) {
+    const detail = element("details", undefined, "reference-item");
+    detail.append(element("summary", "이 자료의 적용 조건"), element("p", fault.application_criteria, "reference-content"));
+    group.append(detail);
+  }
+  const source = safeSourceUrl(fault?.source_url);
+  if (source) {
+    const link = element("a", "과실비율·해설 원문 출처", "reference-link");
+    link.href = source;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    group.append(link);
+  }
+  group.append(element("p", "선택한 사고 유형에 해당하는 협회 저장 자료입니다.", "hint"));
+  container.append(group);
 }
 async function action(fn) {
   if (busy) return;
@@ -409,6 +544,7 @@ function render() {
     );
     workspace.append(viewer, info);
     c.append(workspace);
+    appendReferences(c);
     return;
   }
   c.append(
@@ -440,6 +576,7 @@ function render() {
     return;
   }
   if (job) c.append(element("p", job.message, "warning"));
+  appendReferences(c);
   const label = element("label", undefined, "upload");
   label.append(
     element("strong", file ? "다른 영상으로 변경" : "분석할 영상 선택"),
@@ -460,6 +597,10 @@ function render() {
     if (preview) URL.revokeObjectURL(preview);
     file = picked;
     preview = URL.createObjectURL(file);
+    resultRequest += 1;
+    accidentResult = null;
+    resultLoading = false;
+    resultError = "";
     job = null;
     render();
   };
@@ -645,6 +786,7 @@ async function poll() {
     render();
     if (["queued", "processing", "uploading"].includes(job.status))
       timer = setTimeout(poll, 1000);
+    else void loadAccidentResult();
   } catch (e) {
     if (e.status === 409) {
       clearVideo();

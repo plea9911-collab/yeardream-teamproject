@@ -15,6 +15,8 @@ from wsgiref.simple_server import WSGIServer
 
 from main import create_app, QuietHandler
 from sqlite_repository import SQLiteRepository
+from session_core import SessionError
+from result_service import build_result
 from tools.team_check import ROOT, REGISTRY, V2, service
 from video_analysis import analyze_video, VideoError
 
@@ -175,7 +177,7 @@ def create_web_app(database, jobs, *, public_origin=None):
                     jobs.slots.release()
                 return error(422, data['message'])
             return respond(202, data)
-        match = re.fullmatch(r'/video-jobs/([a-f0-9]{32})(?:/(original.jpg|detected.jpg))?', path)
+        match = re.fullmatch(r'/video-jobs/([a-f0-9]{32})(?:/(original.jpg|detected.jpg|result))?', path)
         if match:
             if method != 'GET':
                 return error(405, 'GET 요청만 가능합니다.')
@@ -184,6 +186,21 @@ def create_web_app(database, jobs, *, public_origin=None):
                 state = sessions.get_session(data['session_id'])
                 if state['revision'] != data['revision'] or state['status'] != 'completed':
                     return error(409, '답변이 수정되어 이전 영상 결과를 사용할 수 없습니다.')
+                if match[2] == 'result':
+                    if data['status'] not in ('completed', 'no_detection', 'failed'):
+                        return error(409, '영상 처리가 끝난 뒤 결과를 확인해 주세요.')
+                    context = sessions.get_context(data['session_id'])
+                    if context['revision'] != data['revision']:
+                        return error(409, '답변이 수정되어 결과를 다시 확인해야 합니다.')
+                    try:
+                        result = build_result(context)
+                    except (OSError, ValueError, KeyError, TypeError):
+                        logging.exception('Unable to read result data')
+                        return error(503, '결과 자료를 읽지 못했습니다. 잠시 후 다시 확인해 주세요.')
+                    latest = sessions.get_session(data['session_id'])
+                    if latest['revision'] != context['revision'] or latest['status'] != 'completed':
+                        return error(409, '답변이 수정되어 결과를 다시 확인해야 합니다.')
+                    return respond(200, result)
                 if match[2]:
                     if data['status'] != 'completed':
                         return error(404, '아직 저장된 사진이 없습니다.')
@@ -191,6 +208,10 @@ def create_web_app(database, jobs, *, public_origin=None):
                 return respond(200, data)
             except FileNotFoundError:
                 return error(404, '영상 작업을 찾지 못했습니다.')
+            except SessionError as exc:
+                if exc.code == 'session_not_found':
+                    return error(404, '대화를 찾지 못했습니다.')
+                return error(409, '현재 대화 상태에서 결과를 확인할 수 없습니다.')
             except (ValueError, UnicodeError, KeyError):
                 return error(503, '영상 작업 기록을 읽지 못했습니다. 관리자에게 복원을 요청해 주세요.')
         return backend(env, start)
