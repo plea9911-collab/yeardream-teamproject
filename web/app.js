@@ -294,7 +294,7 @@ function render() {
   if (!state) {
     const c = element("section", undefined, "card");
     c.append(
-      element("span", "사고 상황 기록 시작", "intro-icon"),
+      element("span", "정이서의 블랙박스 시작", "intro-icon"),
       element("h2", "사고 상황을 하나씩 확인할게요."),
       element(
         "p",
